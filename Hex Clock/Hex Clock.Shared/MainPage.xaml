@@ -1,0 +1,111 @@
+﻿<Page
+    x:Class="Hex_Clock.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Hex_Clock"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="TimeTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="124"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+        </Style>
+        <Style x:Key="SmallTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+        <Storyboard x:Name="IntialAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TimeText">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.99"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="TimeText">
+                <EasingDoubleKeyFrame KeyTime="0" Value="620"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="TimeText">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-18"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="-17">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TimeSeconds">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="TimeSeconds">
+                <EasingDoubleKeyFrame KeyTime="0" Value="370"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="WeekDays">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DateText">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <Grid Name="LayoutRoot" Background="Blue" Loaded="LayoutRoot_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Canvas x:Name="ContentPanel" Margin="12,0,620,0" HorizontalAlignment="Center" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+            <Canvas.RenderTransform>
+                <CompositeTransform Rotation="-30"/>
+            </Canvas.RenderTransform>
+            <Canvas x:Name="TimeText" Height="315" Canvas.Left="-18" Canvas.Top="288" Width="496" RenderTransformOrigin="0.5,0.5" Opacity="0">
+                <Canvas.RenderTransform>
+                    <CompositeTransform/>
+                </Canvas.RenderTransform>
+                <TextBlock x:Name="TimeHours" TextWrapping="Wrap" Text="12" Canvas.Top="24" Style="{StaticResource TimeTextStyle}" Canvas.Left="-67" Width="267" TextAlignment="Right"/>
+                <TextBlock x:Name="TimeDots" Canvas.Left="204" TextWrapping="Wrap" Text=":" Style="{StaticResource TimeTextStyle}"/>
+                <TextBlock x:Name="TimeMinutes" Canvas.Left="263" TextWrapping="Wrap" Text="59" Canvas.Top="24" Style="{StaticResource TimeTextStyle}" Width="257"/>
+            </Canvas>
+            <Rectangle x:Name="HorizontalSeparator" Height="4" Canvas.Left="-400" Canvas.Top="295" Width="1020" Fill="White"/>
+            <Rectangle x:Name="VerticalSeparator" Fill="White" Height="469" Canvas.Left="213" Canvas.Top="489" Width="4"/>
+            <TextBlock x:Name="ApplicationTitle" TextWrapping="Wrap" Text="HEX CLOCK PRO" Canvas.Top="271" Foreground="White" FontSize="16" Canvas.Left="18"/>
+            <TextBlock x:Name="SecondsLabel" Height="36" Canvas.Left="23" TextWrapping="Wrap" Text="seconds" Canvas.Top="475" Width="166" TextAlignment="Right" Style="{StaticResource SmallTextStyle}" Margin="0"/>
+            <TextBlock x:Name="TimeSeconds" Height="205" Canvas.Left="3" TextWrapping="Wrap" Text="59" Canvas.Top="505" Width="210" FontSize="186.667" RenderTransformOrigin="0.5,0.5" Opacity="0">
+                <TextBlock.RenderTransform>
+                    <CompositeTransform/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="DateText" Height="39" Canvas.Left="208" TextWrapping="Wrap" Text="2012/12/31" Canvas.Top="258" Width="143" FontSize="29.333" Opacity="0"/>
+        </Canvas>
+        <!--<StackPanel x:Name="WeekDays" Canvas.Left="234" Orientation="Vertical" Canvas.Top="489" Width="41" Opacity="0">
+                <TextBlock x:Name="Day1" TextWrapping="Wrap" Text="mon" d:LayoutOverrides="Width"/>
+                <TextBlock x:Name="Day2" TextWrapping="Wrap" Text="tue" Margin="0,0,12,0" d:LayoutOverrides="Width"/>
+                <TextBlock x:Name="Day3" TextWrapping="Wrap" Text="wed" Margin="0,0,4,0" d:LayoutOverrides="Width"/>
+                <TextBlock x:Name="Day4" TextWrapping="Wrap" Text="thu" Margin="0,0,11,0" d:LayoutOverrides="Width"/>
+                <TextBlock x:Name="Day5" TextWrapping="Wrap" Text="fri" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="Day6" TextWrapping="Wrap" Text="sat" Margin="0,0,15,0" d:LayoutOverrides="Width"/>
+                <TextBlock x:Name="Day7" TextWrapping="Wrap" Text="sun" Margin="0,0,9,0" d:LayoutOverrides="Width"/>
+            </StackPanel>-->
+        
+        <!--<TextBlock Name="clocktime" Text="13:48:56" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>-->
+    </Grid>
+</Page>
